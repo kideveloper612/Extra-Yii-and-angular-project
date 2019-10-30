@@ -1,0 +1,155 @@
+<div class="filter__top" ng-class="{'filter__top__nofilter':$ctrl.isEmptyFilter()}">
+    <p>show tickets:
+        <span>{{$ctrl.limit > $ctrl.count ? $ctrl.count : $ctrl.limit}}/{{$ctrl.count}}</span>
+    </p>
+    <!-- <button ng-click="$ctrl.clearFilter();" ng-if="!$ctrl.isEmptyFilter()">
+        <i></i><span>clear filters</span>
+    </button> -->
+</div>
+<div class="filter__panel">
+    <div class="filter__block">
+        <p class="filter__block_gray">sort by:</p>
+        <div class="filter__sort">
+            <ul class="check-list">
+                <li class="check-list__check" ng-repeat="param in $ctrl.sortingParams"
+                    ng-click="$ctrl.orderBy = param.id;">
+                    <label class="check-list__lable">
+                        <div class="ng-radio" ng-class="{checked:$ctrl.orderBy === param.id}"></div>
+                        {{param.label}}
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<search-filter-panel title="'Number of stops'">
+        <ul class="check-list">
+            <!-- <li class="check-list__check checked" ng-click="$ctrl.toggleSelection('stops', 'master_check_all', $ctrl.parent.stops_airports[0])">
+                <label class="check-list__lable">
+                    <div class="ng-checkbox filter-item-checkbox" ng-class="{checked:$ctrl.filterBy.stops.indexOf('master_check_all') > -1}"></div>
+                    <div class="filter-item-weight">
+                        <div class="filter-item-number">All</div>
+                        <div class="filter-item-price">
+                            <span ng-click="$ctrl.resetFilter('stops')">reset</span>
+                        </div>
+                    </div>
+                </label>
+            </li> -->
+            <li class="check-list__check checked" ng-repeat="stopsNumber in $ctrl.stopsCount"
+                ng-click="$ctrl.toggleSelection('stops',stopsNumber)">
+                <label class="check-list__lable">
+                    <div class="ng-checkbox filter-item-checkbox" ng-class="{checked:$ctrl.filterBy.stops.indexOf(stopsNumber) > -1}"></div>
+                    <div class="filter-item-weight">
+                        <div class="filter-item-number">{{stopsNumber}}</div>
+                        <div class="filter-item-price">
+                            <price-component currency="$ctrl.parent.global_currency" price="$ctrl.stopsCountPrice[stopsNumber]"></price-component>
+                        </div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+</search-filter-panel>
+<search-filter-panel title="'baggage'">
+        <ul class="check-list">
+            <li class="check-list__check checked" ng-repeat="baggage in $ctrl.baggages"
+                ng-click="$ctrl.toggleSelection('baggage',baggage.id)">
+                <label class="check-list__lable">
+                    <div class="ng-checkbox filter-item-checkbox" ng-class="{checked:$ctrl.filterBy.baggage.indexOf(baggage.id) > -1}"></div>
+                    <div class="filter-item-weight">
+                        <div class="filter-item-number">{{baggage.baggageData}}</div>
+                        <div class="filter-item-price" ng-if="$ctrl.parent.baggagePrices[baggage.id]>0">
+                            <price-component currency="$ctrl.parent.global_currency" price="$ctrl.parent.baggagePrices[baggage.id]"></price-component>
+                        </div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+</search-filter-panel>
+<search-filter-panel title="'duration of stops'">
+        <rzslider
+            rz-slider-model="$ctrl.filterBy.duration_segment.min"
+            rz-slider-high="$ctrl.filterBy.duration_segment.max"
+            rz-slider-options="$ctrl.duration_segmentSlider"></rzslider>
+</search-filter-panel>
+<search-filter-panel title="'prices'">
+        <rzslider
+                rz-slider-model="$ctrl.filterBy.price.min"
+                rz-slider-high="$ctrl.filterBy.price.max"
+                rz-slider-options="$ctrl.priceSlider"></rzslider>
+</search-filter-panel>
+<search-filter-panel title="'departure/arrival times'">
+    <div ng-repeat="(index, segment) in $ctrl.segments track by $index">
+        <div>
+            <label>Departure from {{segment.city_origin}} {{segment.original_origin}}</label>
+            <rzslider
+                rz-slider-model="$ctrl.filterBy['departure' + segment.id].min"
+                rz-slider-high="$ctrl.filterBy['departure' + segment.id].max"
+                rz-slider-options="$ctrl['departure' + segment.id + 'Slider']"></rzslider>
+        </div>
+        <div>
+            <label>Arrival in {{segment.city_destination}} {{segment.original_destination}}</label>
+            <rzslider
+                rz-slider-model="$ctrl.filterBy['arrival' + segment.id].min"
+                rz-slider-high="$ctrl.filterBy['arrival' + segment.id].max"
+                rz-slider-options="$ctrl['arrival' + segment.id + 'Slider']"></rzslider>
+        </div>
+    </div>
+</search-filter-panel>
+<search-filter-panel title="'Flight duration'">
+    <rzslider
+            rz-slider-model="$ctrl.filterBy.duration.min"
+            rz-slider-high="$ctrl.filterBy.duration.max"
+            rz-slider-options="$ctrl.durationSlider"></rzslider>
+</search-filter-panel>
+<search-filter-panel title="'connecting airports'">
+    <ul class="check-list">
+        <li class="check-list__check checked" ng-repeat="(airport, airportData) in $ctrl.airports"
+            ng-click="$ctrl.toggleSelection('airport',airport)">
+            <label class="check-list__lable">
+                <div class="ng-checkbox" ng-class="{checked:$ctrl.filterBy.airport.indexOf(airport) > -1}"></div>
+                {{airportData.name}}
+            </label>
+        </li>
+    </ul>
+</search-filter-panel>
+<search-filter-panel title="'airlines'">
+    <ul class="check-list">
+        <li class="check-list__check checked" ng-repeat="(airline_key, airline) in $ctrl.parent.airlines"
+            ng-click="$ctrl.toggleSelection('airline',airline_key)">
+            <label class="check-list__lable">
+                <div class="ng-checkbox" ng-class="{checked:$ctrl.filterBy.airline.indexOf(airline_key) > -1}"></div>
+                {{airline.name}}
+            </label>
+        </li>
+    </ul>
+</search-filter-panel>
+<search-filter-panel title="'airports'">
+    <ul class="check-list">
+        <li class="check-list__check checked" ng-repeat="airport in $ctrl.parent.stops_airports[0]"
+            ng-click="$ctrl.toggleSelection('stops_airports', airport)">
+            <label class="check-list__lable">
+                <div class="ng-checkbox" ng-class="{checked:$ctrl.filterBy.stops_airports.indexOf(airport) > -1}"></div>
+                {{airport}}
+            </label>
+        </li>
+        <br>
+        <li class="check-list__check checked" ng-repeat="airport in $ctrl.parent.stops_airports[1]"
+            ng-click="$ctrl.toggleSelection('stops_airports', airport)">
+            <label class="check-list__lable">
+                <div class="ng-checkbox" ng-class="{checked:$ctrl.filterBy.stops_airports.indexOf(airport) > -1}"></div>
+                {{airport}}
+            </label>
+        </li>
+    </ul>
+</search-filter-panel>
+<search-filter-panel title="'online travel agencies'">
+    <ul class="check-list">
+        <li class="check-list__check checked" ng-repeat="(gate, gateData) in $ctrl.parent.gates"
+            ng-click="$ctrl.toggleSelection('agencies', gate)">
+            <label class="check-list__lable">
+                <div class="ng-checkbox" ng-class="{checked:$ctrl.filterBy.agencies.indexOf(gate) > -1}"></div>
+                {{gateData.label}}
+            </label>
+        </li>
+    </ul>
+</search-filter-panel>

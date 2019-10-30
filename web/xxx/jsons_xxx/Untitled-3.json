@@ -1,0 +1,47 @@
+array(1) {
+  ["json"]=>
+  array(8) {
+    ["marker"]=>
+    string(6) "192357"
+    ["host"]=>
+    string(23) "www.ourcheaptickets.com"
+    ["user_ip"]=>
+    string(13) "188.43.136.32"
+    ["locale"]=>
+    string(2) "en"
+    ["trip_class"]=>
+    string(1) "Y"
+    ["passengers"]=>
+    array(3) {
+      ["adults"]=>
+      int(1)
+      ["children"]=>
+      int(0)
+      ["infants"]=>
+      int(0)
+    }
+    ["segments"]=>
+    array(2) {
+      [0]=>
+      array(3) {
+        ["origin"]=>
+        string(3) "MOW"
+        ["destination"]=>
+        string(3) "LHR"
+        ["date"]=>
+        string(10) "2019-08-07"
+      }
+      [1]=>
+      array(3) {
+        ["origin"]=>
+        string(3) "LHR"
+        ["destination"]=>
+        string(3) "MOW"
+        ["date"]=>
+        string(10) "2019-08-13"
+      }
+    }
+    ["signature"]=>
+    string(32) "0af5a4f7894f747672ab7f902fdb0ab1"
+  }
+}

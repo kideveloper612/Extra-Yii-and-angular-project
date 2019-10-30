@@ -1,0 +1,116 @@
+<div class="price-calendar-area" ng-class="{open:open}">
+    <div class="calendar-title" ng-if="$ctrl.calendar!='mini_calendar'">Low fare calendar</div>
+    <div class="price-area" ng-if="$ctrl.calendar!='mini_calendar'">
+        <div class="price-area-header">
+            <div class="depart-header"  ng-if="!$ctrl.one_way">
+                <div class="depart-btn-container">
+                    <div class="title">DEPART</div>
+                    <div class="btn-area">
+                        <button ng-click="$ctrl.changeDate('depart', -1);">&#x02c5;</button>
+                        <button ng-click="$ctrl.changeDate('depart', 1);">&#x02c4;</button>
+                    </div>
+                </div>
+                <div class='depart-date-area'>
+                    <div ng-repeat="depart_date in $ctrl.depart_dates" class="depart-date">
+                        {{depart_date[2]}}
+                    </div>
+                </div>
+            </div>
+            <div class="return-date-header">
+                <div class="return-date-btn-area" ng-if="!$ctrl.one_way">
+                    <div class="header-title">RETURN</div>
+                    <div class="header-btns"><button ng-click="$ctrl.changeDate('return', -1);">&lt;</button>
+                        <button ng-click="$ctrl.changeDate('return', 1);">&gt;</button>
+                    </div>
+                </div>
+                <div class="return-month-btn-area" ng-if="$ctrl.one_way">
+                    <div class="header-btns-month">
+                        <button ng-click="$ctrl.changeDate('month', -1);">&lt;</button>
+                    </div>
+                    <div class="header-title">{{$ctrl.date_of_one['month_str']}}&nbsp;&nbsp;{{$ctrl.date_of_one['year']}}</div>
+                    <div class="header-btns-month">
+                        <button ng-click="$ctrl.changeDate('month', 1);">&gt;</button>
+                    </div>
+                </div>
+                <div class="return-date-area">
+                    <div class="return-date" ng-if="!$ctrl.one_way" ng-repeat="return_date in $ctrl.return_dates">
+                        {{return_date[2]}}
+                    </div>
+                    <div class="return-date one-way" ng-if="$ctrl.one_way" ng-repeat="day in $ctrl.days">
+                        {{day}}
+                    </div>
+                </div>
+                <div class="main-container">
+                    <div ng-if="!$ctrl.one_way">
+                        <div ng-repeat="depart_date in $ctrl.depart_dates" class="main-row">
+                            <div ng-repeat="return_date in $ctrl.return_dates" class="main-cell" ng-class="$ctrl.pricesArray[depart_date[1]][return_date[1]].class">
+                                <a ng-href="{{$ctrl.pricesArray[depart_date[1]][return_date[1]]['url']}}">
+                                    <div ng-if="$ctrl.pricesArray[depart_date[1]][return_date[1]]['price']>0">
+                                        <price-component currency="$ctrl.parent.global_currency" price="$ctrl.pricesArray[depart_date[1]][return_date[1]]['price']"></price-component>
+                                    </div>
+                                    <div ng-if="!($ctrl.pricesArray[depart_date[1]][return_date[1]]['price']>0)">
+                                        <div ng-if="$ctrl.pricesArray[depart_date[1]][return_date[1]]['price']=='?'">
+                                            <i class="fa fa-search"></i>
+                                        </div>
+                                        <div ng-if="$ctrl.pricesArray[depart_date[1]][return_date[1]]['price']!='?'">
+                                            {{$ctrl.pricesArray[depart_date[1]][return_date[1]]['price']}}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="$ctrl.one_way">
+                        <div ng-repeat="weekdata in $ctrl.pricesArrayOne" class="main-row">
+                            <div ng-repeat="price in weekdata" class="main-cell one-way" ng-class="price.class">
+                                <a ng-href="{{price['url']}}">
+                                    <div class="cell-date">{{price.date}}</div>
+                                    <div ng-if="price.price>0">
+                                        <price-component currency="$ctrl.parent.global_currency" price="price.price"></price-component>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price-area-mini" ng-if="$ctrl.calendar=='mini_calendar'">
+        <div ng-if="$ctrl.one_way" class="main-row">
+            <div ng-repeat="depart_date in $ctrl.depart_dates" class="main-cell one-way">
+                <a ng-href="{{depart_date['url']}}">
+                    <div class="cell-date-mini">{{depart_date[2]}}</div>
+                    <div ng-if="depart_date.price>0" class="price-cell-mini">
+                        <price-component currency="$ctrl.parent.global_currency" price="depart_date.price"></price-component>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div ng-if="!$ctrl.one_way" class="main-row">
+            <div ng-repeat="date in $ctrl.depart_dates">
+                <div class="main-cell one-way">
+                    <a ng-href="{{$ctrl.pricesArray[date[1]]['min']['url']}}">
+                        <div ng-if="$ctrl.pricesArray[date[1]]['min']['price']>0">
+                            <div class="cell-date-mini">{{$ctrl.pricesArray[date[1]]['min']['date']}}</div>
+                            <div class="price-cell-mini">
+                                <price-component currency="$ctrl.parent.global_currency" price="$ctrl.pricesArray[date[1]]['min']['price']"></price-component>
+                            </div>
+                        </div>
+                        <div ng-if="!$ctrl.pricesArray[date[1]]['min']['price']">
+                            <div class="cell-date-mini">&nbsp;</div>
+                            <div class="price-cell-mini">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price-calendar-footer">
+        <div class="calendar-description">{{$ctrl.calendar_description}}</div>
+        <span ng-click="$ctrl.toggleCalendar();" class="calendar-open-btn">{{$ctrl.toggleBtnText}}</span>
+    </div>
+</div>
+

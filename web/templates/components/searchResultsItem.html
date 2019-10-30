@@ -1,0 +1,171 @@
+<div class="tickets__item" ng-class="{open:open}" ng-init="termsLimit=3;open=false;">
+    <div class="tickets__block-sites">
+        <div class="carrier_container">
+            <div ng-if="!$ctrl.prices[0].flights_handbags_state.state">
+                <i class="luggage no" data-weight=""></i>
+            </div>
+            <div ng-if="$ctrl.prices[0].flights_handbags_state.state">
+                <i class="luggage" data-weight="{{$ctrl.prices[0].flights_handbags_state.weight}}"></i>
+            </div>
+            <div ng-if="!$ctrl.prices[0].flights_baggage_state.state">
+                <i class="baggage no" data-weight=""></i>
+            </div>
+            <div ng-if="$ctrl.prices[0].flights_baggage_state.state">
+                <i class="baggage" data-weight="{{$ctrl.prices[0].flights_baggage_state.weight}}"></i>
+            </div>
+        </div>
+        <ul>
+            <li ng-repeat="term in $ctrl.prices| orderBy:'price'">
+                <div ng-if="$first">
+                    <a ng-href="./redirect/{{$ctrl.searchId}}/{{term.url}}" target="_blank">
+                        <div class="tickets__block-sites-btn"><span>book for</span> <span
+                                class="tickets__block-sites-btn-price">
+                            <price-component currency="term.currency" price="term.price"></price-component>
+                        </span>
+                        </div>
+                    </a>
+                    <p class="tickets__block-sites_topic">
+                        <a ng-href="./redirect/{{$ctrl.searchId}}/{{term.url}}" target="_blank">{{$ctrl.gates[term.id].label}}</a>                        
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#" ng-click="$ctrl.open_review($ctrl.gates[term.id].label)">{{$ctrl.gates[term.id].reviews.reviews}}</a>
+                    </p>
+                    <!-- <div ng-if="$ctrl.agency_count>1"> -->
+                    <div>
+                        <span class="tickets__block-sites-reviews tickets_color_blue"><a href="#" ng-click="$ctrl.open_review($ctrl.gates[term.id].label)">Review</a></span>
+                        <span class="tickets__block-sites-gate tickets_color_blue">Site</span>
+                        <span class="tickets__block-sites-price tickets_color_blue">Price</span>
+                    </div>
+                </div>
+                <div class="ng-slide tickets__block-sites-more-tickets" ng-if="!$first" ng-show="$index < termsLimit">
+                    <a href="#" ng-click="$ctrl.open_review($ctrl.gates[term.id].label)">
+                        <span class="tickets__block-sites-reviews">{{$ctrl.gates[term.id].reviews.reviews}}</span>
+                    </a>
+                    <a ng-href="./redirect/{{$ctrl.searchId}}/{{term.url}}" target="_blank">
+                        <span class="tickets__block-sites-gate">{{$ctrl.gates[term.id].label}}</span>
+                        <span class="tickets__block-sites-price">
+                            <price-component currency="term.currency" price="term.price"></price-component>
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="ticket-link">
+            <div class="agency-container">
+                <div class="link-title">Copy link</div>
+                <div class="share-tickets">
+                    <span ng-click="$ctrl.toggleStar();">
+                        <svg class="Icon__StyledIcon-sc-1pnzn3g-0 rRjVd" ng-class="$ctrl.featured" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path d="M12 16a1 1 0 0 1 .555.168l3.736 2.491-1.252-4.384a.997.997 0 0 1 .254-.982L18.586 10H15c-.379 0-.725-.214-.895-.553L12 5.236 9.895 9.447C9.725 9.786 9.379 10 9 10H5.414l3.293 3.293a.997.997 0 0 1 .254.982l-1.252 4.384 3.736-2.491A1 1 0 0 1 12 16m6 6c-.193 0-.386-.056-.555-.168L12 18.202l-5.445 3.63a1 1 0 0 1-1.516-1.107l1.838-6.434-4.584-4.584A.998.998 0 0 1 3 8h5.382l2.723-5.447c.339-.677 1.451-.677 1.79 0L15.618 8H21a1.001 1.001 0 0 1 .707 1.707l-4.584 4.584 1.838 6.434A.999.999 0 0 1 18 22"></path></svg>
+                    </span>
+                    <div class="tickets__point_social">
+                        <svg class="Icon__StyledIcon-sc-1pnzn3g-0 rRjVd" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path d="M2.476 21h-.02A.489.489 0 0 1 2 20.496c.002-.123.275-12.155 11.429-12.487V4.5c0-.193.106-.369.271-.45a.456.456 0 0 1 .504.062l7.62 6.5a.517.517 0 0 1 .002.777l-7.62 6.501a.462.462 0 0 1-.506.063.501.501 0 0 1-.271-.451v-3.497c-9.924.19-10.46 6.268-10.478 6.53a.485.485 0 0 1-.475.465z"></path></svg>
+                        <div class="tickets__tooltip">
+                            <div class="social-icons">
+                                <a href="#" ng-click="$ctrl.postSocial('facebook');"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#" ng-click="$ctrl.postSocial('twitter');"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-tip="Copy to clipboard">
+                <input class="agency-link" type="text" readonly="readonly" value="{{$ctrl.parent.location_url}}&ticket_id={{$ctrl.value.sign}}" onclick="select(); execCommand('copy');">
+            </div>
+        </div>
+        <div ng-show="$ctrl.prices.length > 3" ng-click="open = !open;termsLimit = open ? 100:3;">
+            <p class="tickets__block-sites_more" ng-hide="termsLimit===3">Show less <i></i></p>
+            <p class="tickets__block-sites_less" ng-show="termsLimit===3">Show more proposals <i></i></p>
+        </div>
+    </div>
+    <div class="tickets__block" ng-click="open = !open;termsLimit = open ? 100:3;">
+        <div class="tickets__block-wrap">
+            <div ng-repeat="segment in $ctrl.fligth" class="tickets__block-info">
+                <div class="tickets__date ng-slide" ng-show="open">
+                    <div ng-if="segment.first.direction_caption=='Depart'">
+                        <i class="tickets__date_out"></i>
+                    </div>
+                    <div ng-if="segment.first.direction_caption=='Return'">
+                        <i class="tickets__date_in"></i>
+                    </div>
+                    <span class="tickets__date_text">{{segment.first.direction_caption}}</span>
+                    <span class="tickets__date_data">{{segment.first.departure_timestamp * 1000 | date:'dd.MM.yyyy'}}</span>
+                </div>
+                <div class="tickets__main-info">
+                    <div class="tickets__main-img" ng-show="!open">
+                        <img ng-src="//pics.avs.io/120/35/{{segment.first.operated_by}}{{$ctrl.isRetina? '@2x' : ''}}.png"
+                             alt={{segment.first.operated_by}}">
+                    </div>
+                    <div class="tickets__time-way-left">
+                        <p>{{segment.first.departure_time}}</p>
+                        <span>{{$ctrl.airports[segment.first.departure].city}}</span>
+                    </div>
+                    <div class="tickets__direct">
+                        <p>
+                            {{$ctrl.value.total_duration * 60 | secondsToTime:'%hours%h %minutes%m'}}
+                        </p>
+                        <div class="tickets__line-way"></div>
+                        <flight-line flights="segment.flight" first="segment.first.departure"
+                                     last="segment.last.arrival"></flight-line>
+                    </div>
+                    <div class="tickets__time-way-right">
+                        <p>{{segment.last.arrival_time}}</p>
+                        <span>{{$ctrl.airports[segment.last.arrival].city}}</span>
+                    </div>
+                </div>
+                <div class="tickets__other-info ng-slide" ng-show="open">
+                    <hr>
+                    <div class="carrier_container-detail">
+                        <div class="carrier_container-detail-item">
+                            <div ng-if="!$ctrl.prices[segment.first.direction].flights_handbags_state.state">
+                                <i class="luggage no" data-weight=""></i>
+                                <span class="luggage-detail-text">Without carry on <sup>*</sup></span>
+                            </div>
+                            <div ng-if="$ctrl.prices[segment.first.direction].flights_handbags_state.state">
+                                <i class="luggage" data-weight="{{$ctrl.prices[segment.first.direction].flights_handbags_state.weight}}"></i>
+                                <span class="luggage-detail-text">{{$ctrl.prices[segment.first.direction].flights_handbags_state.label}} <sup>*</sup></span>
+                            </div>
+                        </div>
+                        <div class="carrier_container-detail-item">
+                            <div ng-if="!$ctrl.prices[segment.first.direction].flights_baggage_state.state">
+                                <i class="luggage no" data-weight=""></i>
+                                <span class="luggage-detail-text">Without out baggage</span>
+                            </div>
+                            <div ng-if="$ctrl.prices[segment.first.direction].flights_baggage_state.state">
+                                <i class="luggage" data-weight="{{$ctrl.prices[segment.first.direction].flights_baggage_state.weight}}"></i>
+                                <span class="luggage-detail-text">{{$ctrl.prices[segment.first.direction].flights_baggage_state.label}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flight-segment-detail">
+                        <flight-segment flights="segment.flight" first="segment.first.departure"
+                                        last="segment.last.arrival"></flight-segment>
+                    </div>
+                    <!-- <div class="tickets__other-time">
+                        {{segment.first.departure_time}}-{{segment.last.arrival_time}}
+                    </div>
+                    <div class="tickets__other-way">
+                        <ul>
+                            <li>{{segment.first.departure}}</li>
+                            <li>{{segment.last.arrival}}</li>
+                        </ul>
+                    </div>
+                    <div class="tickets__other-city">
+                        <ul>
+                            <li>{{segment.first.operating_carrier}}{{segment.first.number}}</li>
+                            <li>
+                                {{$ctrl.airports[segment.first.departure].country}}
+                            </li>
+                            <li ng-if="segment.first.aircraft">
+                                {{segment.first.aircraft}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tickets__bags">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ticket-details-toggler" ng-click="open = !open;termsLimit = open ? 100:3;"  ng-class="{open:open}">
+    </div>
+</div>

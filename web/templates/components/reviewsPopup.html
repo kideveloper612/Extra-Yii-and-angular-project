@@ -1,0 +1,43 @@
+    <div class="reviewsPopup-modal">
+        <div class="reviewsPopup-modal-content">
+            <h3 class="reviewsPopup-modal-title">Reviews</h3>
+            <button class="reviewsPopup-btn-close" ng-click="$ctrl.closePopup();">Close</button>
+            <div>
+                <form method="POST" preventSubmit="$ctrl.submit();">
+                    <div class="review-editor-container">
+                        <div>
+                            <p>Rating</p>
+                            <div class="star-selector clearfix">
+                                <div class="star-selector__buttons star-selector__buttons-five">
+                                    <a href="#" id="a1" aria-label="Fill out the form. Please select a star rating before writing your review" title="1 star: Bad" tabindex="0" data-stars="1" class="star-selector__buttons__button"></a>
+                                    <a href="#" id="a2" title="2 stars: Poor" tabindex="0" data-stars="2" class="star-selector__buttons__button"></a>
+                                    <a href="#" id="a3" title="3 stars: Average" tabindex="0" data-stars="3" class="star-selector__buttons__button"></a>
+                                    <a href="#" id="a4" title="4 stars: Great" tabindex="0" data-stars="4" class="star-selector__buttons__button"></a>
+                                    <a href="#" id="a5" title="5 stars: Excellent" tabindex="0" data-stars="5" class="star-selector__buttons__button"></a>
+                                </div>
+                                <div class="star-selector__descriptions">
+                                    <span class="a0">Roll over stars, then click to rate.</span>
+                                    <span class="a1 hide">1 star: Bad</span>
+                                    <span class="a2 hide">2 stars: Poor</span>
+                                    <span class="a3 hide">3 stars: Average</span>
+                                    <span class="a4 hide">4 stars: Great</span>
+                                    <span class="a5 hide">5 stars: Excellent</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Your review</p>
+                            <textarea name="review_content" class="review-content" cols="30" rows="10" maxlength="1000" placeholder="Share your honest experience, and help others make better choices."></textarea>
+                        </div>
+                        <div>
+                            <p>Title of your review</p>
+                            <input type="text" name="review_title" class="review-title">
+                        </div>
+                        <br>
+                        <button class="reviewsPopup-btn-refresh" ng-click="$ctrl.submit();">Save</button>
+                    </div>
+                </form>
+                <!-- {{$ctrl.parent.current_agency}} -->
+            </div>
+        </div>
+    </div>

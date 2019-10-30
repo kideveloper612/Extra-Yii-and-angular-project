@@ -1,0 +1,23 @@
+<div class="serch-wrap">
+    <section class="serch-form center-div" ng-class="{'stickytop':stickyTop}">
+        <div class="wrapper">
+            <nav class="search-form-tabs">
+                <ul class="search-form-tabs_list">
+                    <li class="search-form-tabs-list_item item-flights active" role="tab-whitelabel_en" ng-click="change_view('flights');" data-tab="flights">
+                        <span role="tab-whitelabel_en" data-tab="flights">FLIGHTS</span>
+                    </li>
+                    <li class="search-form-tabs-list_item item-flights" role="tab-whitelabel_en" ng-click="change_view('hotels');" data-tab="hotels">
+                        <span role="tab-whitelabel_en" data-tab="hotels">HOTELS</span>
+                    </li>
+                    <li class="search-form-tabs-list_item item-reviews" role="tab-whitelabel_en" ng-click="edit_review('reviews');" data-tab="reviews">
+                        <span>REVIEWS</span>
+                    </li>
+                </ul>
+            </nav>
+            <search-form lang="en" form-data="searchData" search-url="searchUrl" on-submit="submit()"></search-form>
+        </div>
+    </section>
+</div>
+<ui-view></ui-view>
+<reviews-edit></reviews-edit>
+

@@ -1,0 +1,202 @@
+div{
+    border-color: gray;
+}
+.price-calendar-area {
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 10px;
+}
+.calendar-title {
+    margin: 10px;
+}
+.price-area {
+    width: 100%;
+    height: 350px;
+}
+.depart-header {
+    float: left;
+    .depart-btn-container {
+        display: block;
+        border-style: solid;
+        border-width: 1px;
+        .title{
+            display: block;
+            height: 30px;
+            text-align: center;
+            padding-top: 10px;
+        }
+        .btn-area{
+            display: block;
+            height: 30px;
+            button{
+                width: 30px;
+                height: 25px;
+                -webkit-text-fill-color: #6495ed;
+                font-weight: bold;
+                font-size: 20px;
+                font-weight: 700;
+                margin: 0 5px 0 5px;
+            }
+        }
+    }
+    .depart-date-area {
+        .depart-date {
+            border-style: outset;
+            border-width: 1px;
+            height: 50px;
+            text-align: center;
+            padding-top: 10px;
+        }
+    }
+}
+.return-date-header{
+    display: block;
+    float: left;
+    .return-date-btn-area{
+        width: 100%;
+        border-style: solid;
+        border-width: 1px;
+        .header-title {
+            float: left;
+            width: 80%;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .header-btns {
+            display: flex;
+            height: 30px;
+            button {
+                -webkit-text-fill-color: cornflowerblue;
+                font-size: 20px;
+                font-weight: bold;
+                margin-right: 11px;
+                width: 30px;
+                height: 26px;
+                margin-top: 3px;
+            }
+        }
+    }
+    .return-month-btn-area {
+        width:100%;
+        border-style: solid;
+        border-width: 1px;
+        display: flex;
+        padding-left: 33%;
+        padding-top: 10px;
+        .header-btns-month{
+            -webkit-text-fill-color: cornflowerblue;
+            font-size: 20px;
+            font-weight: bold;
+            width: 30px;
+            height: 26px;
+            margin-top: 3px;
+        }
+        .header-title{
+            margin: 10px 20px 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+    }
+    .return-date-area {
+        display: flex;
+        height: 30px;
+        border-style: outset;
+        border-width: 1px;
+        .return-date {
+            border-style: outset;
+            border-width: 1px;
+            width: 110px;
+            text-align: center;
+            padding-top: 10px;
+        }
+        .return-date.one-way{
+            width: 122px;
+        }
+    }
+    .price-area-mini, .main-container{
+        border-style: solid;
+        border-width: 1px;
+        .main-row {
+            height: 50px;
+            display: flex;
+            .main-cell {
+                border-style: inset;
+                border-width: 1px;
+                width: 110px;
+                text-align: center;
+                padding-top: 10px;
+                .cell-date {
+                    text-align: right;
+                    margin-right: 10px;
+                    color: gray;
+                }
+            }
+            .main-cell.one-way{
+                width: 122px;
+            }
+            .cheap{
+                color: #05F;
+            }
+            .normal{
+                color: black;
+            }
+            .unknown{
+                color: gray!important;
+            }
+        } 
+    }
+}
+.normal{
+    color: black;
+}
+.unknown{
+    color: gray!important;
+}
+.price-calendar-footer {
+    width: 100%;
+    margin: 5px;
+    display: flex;
+    text-align: right;
+    padding-right: 10%;
+    .calendar-open-btn{
+        cursor: pointer;
+        color: #1f6ec8;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .calendar-description{
+        width: 85%;
+        text-align: left;
+    }
+}
+
+.price-area-mini{
+    border-style: solid;
+    border-width: 1px;
+    .main-row {
+        height: 50px;
+        display: flex;
+        .main-cell {
+            border-style: inset;
+            border-width: 1px;
+            width: 110px;
+            height: 100%;
+            text-align: center;
+            padding-top: 10px;
+            color: #05F;
+            .cell-date {
+                text-align: right;
+                margin-right: 10px;
+                color: gray;
+            }
+            .price-cell-mini{
+                margin-top: 5px;
+            }
+        }
+        .main-cell.one-way{
+            width: 122px;
+        }
+    }
+}

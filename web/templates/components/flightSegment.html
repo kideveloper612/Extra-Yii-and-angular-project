@@ -1,0 +1,77 @@
+<div class="airport-data">
+    <div ng-repeat="(city_key, city) in $ctrl.timesdata">
+        <div>
+            <div ng-if="city.dep_data.airport===city.airport">
+                <hr>
+                <div class="segment-time">
+                    <div class="segment-text">
+                        Stop at {{$ctrl.airportsData[city.airport].city}} {{city.airport}}
+                    </div>
+                    <div class="segment-duration">
+                        {{city.timevalue | secondsToTime:'%hours%h %minutes%m'}}
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div ng-if="city.dep_data.airport!==city.airport"  class="segment-airline">
+                <div class="airline-detail-image">
+                    <img ng-src="//pics.avs.io/al_square/40/40/{{city.operated_by}}{{$ctrl.isRetina? '@2x' : ''}}.png" alt="{{city.operated_by}}">
+                </div>
+                <div class="segment-airline-time">
+                    <div class="segment-time">
+                        <div class="segment-text">
+                            {{city.dep_data.time}}-{{city.time}}
+                        </div>
+                        <div class="segment-duration">
+                            {{city.timevalue | secondsToTime:'%hours%h %minutes%m'}}
+                        </div>
+                    </div>
+                    <div>
+                        {{city.dep_data.airport}} {{$ctrl.airportsData[city.dep_data.airport].name}} ->
+                        {{city.airport}}{{$ctrl.airportsData[city.airport].name}}
+                    </div>
+                    <div class="aircraft-info"  data-ng-click="toggleOpen($event, city_key)">
+                        <div class="aircraft-info-head">
+                            <div class="aircraft-info-title">
+                                {{city.aircraft_info}}
+                            </div>
+                            <div class="aircraft-info-btn">
+                                <i ng-class="city.showdetails"></i>
+                            </div>
+                        </div>
+                        <div class="aircraft-info-data" ng-class="city.showdetails">
+                            <div ng-if="city.hasinfo==true">
+                                <div ng-repeat="(key, informations) in $ctrl.parent.parent.flight_info[city.flight_name]">
+                                    <div class="flight_info_title">{{key}}</div>
+                                    <div ng-repeat="(d_key, item) in informations">
+                                        <div ng-if="item!='' && item!='false' && item!='none'">
+                                            <div ng-if="key=='amenities'">
+                                                <div class="flight_info_title_sub">{{d_key}}</div>
+                                                <div ng-repeat="(item_key, item_value) in item">
+                                                    <div ng-if="item_value!='' && item_value!='false' && item_value!='none'">
+                                                        <ul class="flight_info_list">
+                                                            <li><i ng-class="d_key"></i>{{item_key}}</li><li>{{item_value}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-if="key!='amenities'">
+                                                <ul class="flight_info_list"><li>
+                                                    <i ng-class="key"></i>{{d_key}}
+                                                </li><li>{{item}}</li></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="city.hasinfo==false">
+                                This flight has no detail data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="visibility: hidden">
+        </div>
+    </div>
+</div>
